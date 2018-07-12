@@ -3,12 +3,12 @@
 <mapper namespace="com.zhuyizhuo.java.mybatis.mapper.UserMapper">
   <resultMap id="BaseResultMap" type="com.zhuyizhuo.java.mybatis.bean.UserBean">
     <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="name" jdbcType="VARCHAR" property="name" typeHandler="com.zhuyizhuo.java.mybatis.handler.TypeHandler"/>
     <result column="age" jdbcType="VARCHAR" property="age" />
   </resultMap>
 
   <select id="selectByExample" resultMap="BaseResultMap">
-   select * from simple_mybatis
+   select t.id,t.name,t.age from simple_mybatis t
   </select>
 
   <insert id="testInsert" parameterType="com.zhuyizhuo.java.mybatis.bean.UserBean" useGeneratedKeys="true" keyProperty="id">

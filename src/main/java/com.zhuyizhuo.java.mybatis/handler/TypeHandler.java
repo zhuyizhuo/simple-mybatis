@@ -21,7 +21,9 @@ public class TypeHandler extends BaseTypeHandler<String> {
     @Override
     public String getNullableResult(ResultSet rs, String columnName)
             throws SQLException {
-        return rs.getString(columnName);
+        String string = rs.getString(columnName);
+        string = string.replaceAll("-typehandler"," result");
+        return string;
     }
 
     @Override
