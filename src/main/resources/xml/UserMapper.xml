@@ -7,13 +7,24 @@
     <result column="age" jdbcType="VARCHAR" property="age" />
   </resultMap>
 
-  <select id="selectByExample" resultMap="BaseResultMap">
-   select t.id,t.name,t.age from simple_mybatis t
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.zhuyizhuo.java.mybatis.bean.UserBean">
+   select t.id,t.name,t.age from simple_mybatis_user t
+   where t.id = #{id}
   </select>
 
   <insert id="testInsert" parameterType="com.zhuyizhuo.java.mybatis.bean.UserBean" useGeneratedKeys="true" keyProperty="id">
-    insert into simple_mybatis (id, name,age) values (
+    insert into simple_mybatis_user (id, name,age) values (
     #{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR,typeHandler=com.zhuyizhuo.java.mybatis.handler.TypeHandler},#{age,jdbcType=VARCHAR}
     )
   </insert>
+
+  <update id="update" parameterType="com.zhuyizhuo.java.mybatis.bean.UserBean">
+    update simple_mybatis_user t set t.name = #{name}
+    where  t.id = #{id}
+  </update>
+
+  <select id="selectUserOrders" resultMap="userOrderResultMap" parameterType="int">
+    select t.id,t.name,t.age from simple_mybatis_user t
+    where t.id = #{id}
+  </select>
 </mapper>

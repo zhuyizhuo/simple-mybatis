@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhuyizhuo.java.mybatis.mapper.UserMapper">
+  <resultMap id="BaseResultMap" type="com.zhuyizhuo.java.mybatis.bean.Order">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="order_no" jdbcType="VARCHAR" property="orderNo"/>
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="gmt_create" jdbcType="TIME" property="gmtCreate" />
+  </resultMap>
+
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.zhuyizhuo.java.mybatis.bean.Order">
+         SELECT
+        simple_mybatis_order.id,
+        simple_mybatis_order.order_no,
+        simple_mybatis_order.user_id,
+        simple_mybatis_order.gmt_create
+        FROM
+        simple_mybatis_order
+   where id = #{id}
+  </select>
+
+  <insert id="testInsert" parameterType="com.zhuyizhuo.java.mybatis.bean.Order" useGeneratedKeys="true" keyProperty="id">
+    insert into simple_mybatis_user (id, order_no,user_id) values (
+    #{id,jdbcType=INTEGER}, #{order_no,jdbcType=VARCHAR},#{user_id,jdbcType=VARCHAR}
+    )
+  </insert>
+
+  <update id="update" parameterType="com.zhuyizhuo.java.mybatis.bean.Order">
+    update simple_mybatis_user t set t.name = #{name}
+    where  t.id = #{id}
+  </update>
+</mapper>

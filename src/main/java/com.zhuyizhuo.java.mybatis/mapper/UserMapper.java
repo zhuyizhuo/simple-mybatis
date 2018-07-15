@@ -1,6 +1,8 @@
 package com.zhuyizhuo.java.mybatis.mapper;
 
 import com.zhuyizhuo.java.mybatis.bean.UserBean;
+import com.zhuyizhuo.java.mybatis.bean.UserOrder;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -9,7 +11,11 @@ import java.util.List;
  */
 public interface UserMapper {
 
-    List<UserBean> selectByExample();
+    List<UserBean> selectByExample(UserBean userBean);
 
     int testInsert(UserBean ub);
+
+    int update(UserBean userBean);
+
+    UserOrder selectUserOrders(@Param("id") int userId);
 }
