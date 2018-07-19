@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.zhuyizhuo.java.mybatis.mapper.UserMapper">
+<mapper namespace="com.zhuyizhuo.java.mybatis.mapper.OrderMapper">
   <resultMap id="BaseResultMap" type="com.zhuyizhuo.java.mybatis.bean.Order">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="order_no" jdbcType="VARCHAR" property="orderNo"/>
@@ -29,4 +29,16 @@
     update simple_mybatis_user t set t.name = #{name}
     where  t.id = #{id}
   </update>
+
+
+    <select id="selectOrder" resultMap="BaseResultMap" parameterType="java.lang.String">
+         SELECT
+        simple_mybatis_order.id,
+        simple_mybatis_order.order_no,
+        simple_mybatis_order.user_id,
+        simple_mybatis_order.gmt_create
+        FROM
+        simple_mybatis_order
+       where order_no = #{0}
+  </select>
 </mapper>

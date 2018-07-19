@@ -1,7 +1,11 @@
 package com.zhuyizhuo.java.mybatis;
 
+import com.zhuyizhuo.java.mybatis.bean.Order;
 import com.zhuyizhuo.java.mybatis.bean.UserBean;
+import com.zhuyizhuo.java.mybatis.bean.UserOrder;
+import com.zhuyizhuo.java.mybatis.mapper.OrderMapper;
 import com.zhuyizhuo.java.mybatis.mapper.UserMapper;
+import com.zhuyizhuo.java.mybatis.resultmap.UserResultMap;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -17,13 +21,20 @@ import java.util.List;
  */
 public class TestMybatis {
 
-    public static SqlSession getSqlSession() throws Exception {
+    private static SqlSession sqlSession = null;
+    //绝对路径加载配置文件
+    public static SqlSession getSqlSession1() throws Exception {
         //配置文件
-       /* InputStream configFile = new FileInputStream(
+        InputStream configFile = new FileInputStream(
                 "E:\\github\\simple-mybatis\\src\\main\\resources\\mybatis-config.xml");
         SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(configFile);
         //加载配置文件得到SqlSessionFactory
-        return sqlSessionFactory.openSession();*/
+        return sqlSessionFactory.openSession();
+    }
+
+    //相对路径加载配置文件
+    public static SqlSession getSqlSession() throws Exception {
+        //配置文件
         String resource = "mybatis-config.xml";
         InputStream inputStream = Resources.getResourceAsStream(resource);
         SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
@@ -32,21 +43,44 @@ public class TestMybatis {
 
     public static void main(String[] args) throws Exception {
         try {
-            SqlSession sqlSession = getSqlSession();
+            sqlSession = getSqlSession();
+
             UserMapper testMapper = sqlSession.getMapper(UserMapper.class);
 
             testQuery(testMapper);
 
-//            testInsert(sqlSession, testMapper);
+            testInsert(testMapper);
 
-//            testUpdate(sqlSession,testMapper);
+            testUpdate(testMapper);
 
+            testUnionQuery(testMapper);
+
+            OrderMapper orderMapper = sqlSession.getMapper(OrderMapper.class);
+
+            testQueryOrder(orderMapper);
+
+            sqlSession.close();
         }catch (Exception e){
             e.printStackTrace();
         }
     }
 
-    private static void testUpdate(SqlSession sqlSession,UserMapper testMapper) {
+    private static void testQueryOrder(OrderMapper testMapper) {
+        Order order = testMapper.selectOrder("2order_no");
+        System.out.println(order);
+    }
+
+    //关联查询
+    private static void testUnionQuery(UserMapper testMapper) {
+        UserBean userBean = new UserBean();
+        userBean.setId(1);
+        UserResultMap userResultMap = testMapper.selectUserOrders(1);
+        System.out.println("testUnionQuery : " + userResultMap.getName());
+        System.out.println("testUnionQuery : " + userResultMap.getOrder().getId());
+    }
+
+    //test plugin
+    private static void testUpdate(UserMapper testMapper) {
         UserBean test = new UserBean();
         test.setId(1);
         test.setName("cccc");
@@ -56,14 +90,14 @@ public class TestMybatis {
     }
 
     //测试typeHandler插入
-    private static void testInsert(SqlSession sqlSession, UserMapper testMapper) {
+    //test plugin
+    private static void testInsert(UserMapper testMapper) {
         UserBean userBean = new UserBean();
         userBean.setName("33-");
         int i = testMapper.testInsert(userBean);
         System.out.println("done.." + i);
 
         sqlSession.commit();
-        sqlSession.close();
     }
 
     //同一个sqlsession连续两次查询 第二次会命中mybatis一级缓存

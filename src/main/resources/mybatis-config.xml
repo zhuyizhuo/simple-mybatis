@@ -21,6 +21,7 @@
 
     <mappers>
         <mapper resource="xml/UserMapper.xml"/>
+        <mapper resource="xml/OrderMapper.xml"/>
     </mappers>
 
 </configuration>

@@ -1,7 +1,7 @@
 package com.zhuyizhuo.java.mybatis.mapper;
 
 import com.zhuyizhuo.java.mybatis.bean.UserBean;
-import com.zhuyizhuo.java.mybatis.bean.UserOrder;
+import com.zhuyizhuo.java.mybatis.resultmap.UserResultMap;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -17,5 +17,5 @@ public interface UserMapper {
 
     int update(UserBean userBean);
 
-    UserOrder selectUserOrders(@Param("id") int userId);
+    UserResultMap selectUserOrders(@Param("id") int userId);
 }

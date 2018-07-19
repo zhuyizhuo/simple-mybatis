@@ -25,7 +25,6 @@ public class TestOrder {
         try {
             SqlSession sqlSession = getSqlSession();
             UserMapper testMapper = sqlSession.getMapper(UserMapper.class);
-
             testMapper.selectUserOrders(1);
         }catch (Exception e){
             e.printStackTrace();

@@ -23,8 +23,17 @@
     where  t.id = #{id}
   </update>
 
-  <select id="selectUserOrders" resultMap="userOrderResultMap" parameterType="int">
-    select t.id,t.name,t.age from simple_mybatis_user t
-    where t.id = #{id}
-  </select>
+  <!-- 关联的嵌套查询 start -->
+    <resultMap id="userOrderResultMap" type="com.zhuyizhuo.java.mybatis.resultmap.UserResultMap">
+      <association property="order" column="orderNo"
+                   select="com.zhuyizhuo.java.mybatis.mapper.OrderMapper.selectOrder"/>
+    </resultMap>
+
+    <select id="selectUserOrders" resultMap="userOrderResultMap" parameterType="java.lang.Integer">
+      select t.id,t.name,t.age,t.order_No orderNo from simple_mybatis_user t
+      where t.id = #{id}
+    </select>
+  <!-- end -->
+
+  
 </mapper>

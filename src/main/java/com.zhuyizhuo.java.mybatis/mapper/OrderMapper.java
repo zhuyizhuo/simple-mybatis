@@ -15,4 +15,6 @@ public interface OrderMapper {
     int testInsert(Order order);
 
     int update(Order order);
+
+    Order selectOrder(String orderNo);
 }
