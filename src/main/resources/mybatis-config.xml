@@ -5,6 +5,8 @@
 <configuration>
     <plugins>
         <plugin interceptor="com.zhuyizhuo.java.mybatis.plugins.TestPlugin"></plugin>
+        <plugin interceptor="com.github.pagehelper.PageInterceptor">
+        </plugin>
     </plugins>
 
     <environments default="development">

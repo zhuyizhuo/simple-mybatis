@@ -7,6 +7,7 @@ import com.zhuyizhuo.java.mybatis.mapper.OrderMapper;
 import com.zhuyizhuo.java.mybatis.mapper.UserMapper;
 import com.zhuyizhuo.java.mybatis.resultmap.UserResultMap;
 import org.apache.ibatis.io.Resources;
+import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
@@ -47,6 +48,10 @@ public class TestMybatis {
 
             UserMapper testMapper = sqlSession.getMapper(UserMapper.class);
 //
+            List<Order> list = sqlSession.selectList("com.zhuyizhuo.java.mybatis.mapper.OrderMapper.selectByExample",
+                    null, new RowBounds(0, 1));
+            System.out.println(list.size());
+
 //            testQuery(testMapper);
 //
 //            testInsert(testMapper);
@@ -55,11 +60,11 @@ public class TestMybatis {
 //
 //            testUnionQuery(testMapper);
 
-            testUnionQueryResult(testMapper);
-
-            OrderMapper orderMapper = sqlSession.getMapper(OrderMapper.class);
-
-            testQueryOrder(orderMapper);
+//            testUnionQueryResult(testMapper);
+//
+//            OrderMapper orderMapper = sqlSession.getMapper(OrderMapper.class);
+//
+//            testQueryOrder(orderMapper);
 
             sqlSession.close();
         }catch (Exception e){

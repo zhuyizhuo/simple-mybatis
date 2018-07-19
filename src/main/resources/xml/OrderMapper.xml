@@ -16,7 +16,10 @@
         simple_mybatis_order.gmt_create
         FROM
         simple_mybatis_order
-   where id = #{id}
+   where 1=1
+      <if test="id != null and id != ''">
+      id = #{id}
+      </if>
   </select>
 
   <insert id="testInsert" parameterType="com.zhuyizhuo.java.mybatis.bean.Order" useGeneratedKeys="true" keyProperty="id">
