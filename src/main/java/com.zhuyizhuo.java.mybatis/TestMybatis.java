@@ -46,14 +46,16 @@ public class TestMybatis {
             sqlSession = getSqlSession();
 
             UserMapper testMapper = sqlSession.getMapper(UserMapper.class);
+//
+//            testQuery(testMapper);
+//
+//            testInsert(testMapper);
+//
+//            testUpdate(testMapper);
+//
+//            testUnionQuery(testMapper);
 
-            testQuery(testMapper);
-
-            testInsert(testMapper);
-
-            testUpdate(testMapper);
-
-            testUnionQuery(testMapper);
+            testUnionQueryResult(testMapper);
 
             OrderMapper orderMapper = sqlSession.getMapper(OrderMapper.class);
 
@@ -77,6 +79,15 @@ public class TestMybatis {
         UserResultMap userResultMap = testMapper.selectUserOrders(1);
         System.out.println("testUnionQuery : " + userResultMap.getName());
         System.out.println("testUnionQuery : " + userResultMap.getOrder().getId());
+    }
+
+    //关联查询
+    private static void testUnionQueryResult(UserMapper testMapper) {
+        UserBean userBean = new UserBean();
+        userBean.setId(1);
+        UserResultMap userResultMap = testMapper.selectUserOrderResult(1);
+        System.out.println("testUnionQueryResult : " + userResultMap.getName());
+        System.out.println("testUnionQueryResult : " + userResultMap.getOrder().getId());
     }
 
     //test plugin

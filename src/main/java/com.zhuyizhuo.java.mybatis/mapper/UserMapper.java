@@ -18,4 +18,6 @@ public interface UserMapper {
     int update(UserBean userBean);
 
     UserResultMap selectUserOrders(@Param("id") int userId);
+
+    UserResultMap selectUserOrderResult(@Param("id") int userId);
 }

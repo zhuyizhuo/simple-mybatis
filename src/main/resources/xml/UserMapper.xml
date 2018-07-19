@@ -35,5 +35,23 @@
     </select>
   <!-- end -->
 
-  
+  <!-- 关联的嵌套结果 start -->
+  <resultMap id="userOrderResultMap1" type="com.zhuyizhuo.java.mybatis.resultmap.UserResultMap">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" typeHandler="com.zhuyizhuo.java.mybatis.handler.TypeHandler"/>
+    <result column="age" jdbcType="VARCHAR" property="age" />
+    <association property="order" column="orderNo" resultMap="com.zhuyizhuo.java.mybatis.mapper.OrderMapper.BaseResultMap"/>
+  </resultMap>
+
+  <select id="selectUserOrderResult" resultMap="userOrderResultMap1" parameterType="java.lang.Integer">
+      select t.id,t.name,t.age,t.order_No orderNo,
+        simple_mybatis_order.id,
+        simple_mybatis_order.order_no,
+        simple_mybatis_order.user_id,
+        simple_mybatis_order.gmt_create
+       from simple_mybatis_user t, simple_mybatis_order
+      where t.id = #{id}
+      and t.order_No = simple_mybatis_order.order_no
+    </select>
+  <!-- end -->
 </mapper>
