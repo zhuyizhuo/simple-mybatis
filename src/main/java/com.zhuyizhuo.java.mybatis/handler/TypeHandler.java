@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
+ * 自定义TypeHandler 重写了VARCHAR类型的TypeHandler
  * Created by yizhuo on 2018/7/10.
  */
 @MappedJdbcTypes(JdbcType.VARCHAR)

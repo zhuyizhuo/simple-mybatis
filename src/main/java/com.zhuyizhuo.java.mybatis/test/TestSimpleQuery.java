@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * Created by yizhuo on 2018/7/21.
  */
-public class TestQuery {
+public class TestSimpleQuery {
 
     /**
      *  相对路径加载配置文件
@@ -28,9 +28,9 @@ public class TestQuery {
 
     public static void main(String[] args) throws Exception {
         try {
-//            testSimpleQuery();
+            testSimpleQuery();
 
-//            testQueryCache();
+            testQueryCache();
 
             queryResultUseTypeHandler();
         } catch (Exception e){

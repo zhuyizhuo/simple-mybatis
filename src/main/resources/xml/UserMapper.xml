@@ -57,19 +57,19 @@
      </update>
 
     <!-- 关联的嵌套查询 start -->
-    <resultMap id="userOrderResultMap" type="com.zhuyizhuo.java.mybatis.resultmap.UserResultMap">
+    <resultMap id="userOrderMap" type="com.zhuyizhuo.java.mybatis.resultmap.UserResultMap">
         <association property="order" column="orderNo"
                      select="com.zhuyizhuo.java.mybatis.mapper.OrderMapper.selectOrder"/>
     </resultMap>
 
-    <select id="selectUserOrders" resultMap="userOrderResultMap" parameterType="java.lang.Integer">
+    <select id="selectUserOrders" resultMap="userOrderMap" parameterType="java.lang.Integer">
       select t.id,t.name,t.age,t.order_No orderNo from simple_mybatis_user t
       where t.id = #{id}
     </select>
     <!-- 关联的嵌套查询end -->
 
     <!-- 关联的嵌套结果 start -->
-    <resultMap id="userOrderResultMap1" type="com.zhuyizhuo.java.mybatis.resultmap.UserResultMap">
+    <resultMap id="userOrderResultMap" type="com.zhuyizhuo.java.mybatis.resultmap.UserResultMap">
         <id column="id" jdbcType="INTEGER" property="id"/>
         <result column="name" jdbcType="VARCHAR" property="name"
                 typeHandler="com.zhuyizhuo.java.mybatis.handler.TypeHandler"/>
@@ -78,7 +78,8 @@
                      resultMap="com.zhuyizhuo.java.mybatis.mapper.OrderMapper.BaseResultMap"/>
     </resultMap>
 
-    <select id="selectUserOrderResult" resultMap="userOrderResultMap1" parameterType="java.lang.Integer">
+    <!-- int为mybatis内嵌 -->
+    <select id="selectUserOrderResult" resultMap="userOrderResultMap" parameterType="int">
       select t.id,t.name,t.age,t.order_No orderNo,
         simple_mybatis_order.id,
         simple_mybatis_order.order_no,

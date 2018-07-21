@@ -17,7 +17,7 @@ import java.util.List;
 /**
  * Created by yizhuo on 2018/7/10.
  */
-public class TestMybatis {
+public class TestComplexQuery {
 
     /**
      *  绝对路径加载配置文件

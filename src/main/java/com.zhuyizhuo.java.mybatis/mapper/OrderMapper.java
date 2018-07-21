@@ -10,11 +10,5 @@ import java.util.List;
  */
 public interface OrderMapper {
 
-    List<Order> selectByExample(Order order);
-
-    int testInsert(Order order);
-
-    int update(Order order);
-
     Order selectOrder(String orderNo);
 }
