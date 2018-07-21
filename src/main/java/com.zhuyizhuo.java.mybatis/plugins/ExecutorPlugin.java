@@ -15,22 +15,25 @@ import java.util.Properties;
 
 /**
  * Created by yizhuo on 2018/7/12.
+ * 这个插件配置的 拦截Executor中的update(MappedStatement,Object)方法
  */
 @Intercepts({@Signature(
         type= Executor.class,
         method = "update",
         args = {MappedStatement.class,Object.class})})
-public class TestPlugin implements Interceptor {
+public class ExecutorPlugin implements Interceptor {
+
     public Object intercept(Invocation invocation) throws Throwable {
+        System.out.println("----ExecutorPlugin start----");
         Object[] args = invocation.getArgs();
         Method method = invocation.getMethod();
-        System.out.println(method.getName());
-        System.out.println(Arrays.toString(args));
+        System.out.println("method name : " + method.getName());
+        System.out.println("args : " + Arrays.toString(args));
 
         MappedStatement mappedStatement = (MappedStatement) invocation.getArgs()[0];
         BoundSql boundSql = mappedStatement.getBoundSql(invocation.getArgs()[1]);
-        System.out.println(String.format("plugin output sql = %s , param=%s", boundSql.getSql(),boundSql.getParameterObject()));
-
+        System.out.println(String.format("sql = %s ,\n param = %s", boundSql.getSql(),boundSql.getParameterObject()));
+        System.out.println("----ExecutorPlugin end----");
         return invocation.proceed();
     }
 

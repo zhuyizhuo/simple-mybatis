@@ -3,18 +3,29 @@
         PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
+    <typeAliases>
+        <package name="com.zhuyizhuo.java.mybatis.bean"/>
+    </typeAliases>
+
     <plugins>
-        <plugin interceptor="com.zhuyizhuo.java.mybatis.plugins.TestPlugin"></plugin>
+        <!-- 自定义插件 -->
+        <plugin interceptor="com.zhuyizhuo.java.mybatis.plugins.ExecutorPlugin"></plugin>
+        <plugin interceptor="com.zhuyizhuo.java.mybatis.plugins.ParameterHandlerPlugin"></plugin>
+
+        <!--  分页插件 -->
         <plugin interceptor="com.github.pagehelper.PageInterceptor">
         </plugin>
     </plugins>
 
+    <!-- 数据库连接 -->
     <environments default="development">
         <environment id="development">
             <transactionManager type="JDBC"/>
             <dataSource type="POOLED">
                 <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
-                <property name="url" value="jdbc:mysql://localhost:3306/yizhuo?useUnicode=true&amp;characterEncoding=utf-8&amp;useSSL=false&amp;useJDBCCompliantTimezoneShift=true&amp;useLegacyDatetimeCode=false&amp;serverTimezone=UTC"/>
+                <property name="url" value="jdbc:mysql://localhost:3306/yizhuo?useUnicode=true&amp;
+                characterEncoding=utf-8&amp;useSSL=false&amp;useJDBCCompliantTimezoneShift=true&amp;
+                useLegacyDatetimeCode=false&amp;serverTimezone=UTC"/>
                 <property name="username" value="root"/>
                 <property name="password" value="123456"/>
             </dataSource>

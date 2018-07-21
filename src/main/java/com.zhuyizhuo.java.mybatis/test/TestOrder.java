@@ -1,6 +1,7 @@
-package com.zhuyizhuo.java.mybatis;
+package com.zhuyizhuo.java.mybatis.test;
 
-import com.zhuyizhuo.java.mybatis.mapper.UserMapper;
+import com.zhuyizhuo.java.mybatis.bean.Order;
+import com.zhuyizhuo.java.mybatis.mapper.OrderMapper;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -24,8 +25,9 @@ public class TestOrder {
     public static void main(String[] args) throws Exception {
         try {
             SqlSession sqlSession = getSqlSession();
-            UserMapper testMapper = sqlSession.getMapper(UserMapper.class);
-            testMapper.selectUserOrders(1);
+            OrderMapper testMapper = sqlSession.getMapper(OrderMapper.class);
+            Order order = testMapper.selectOrder("1");
+
         }catch (Exception e){
             e.printStackTrace();
         }

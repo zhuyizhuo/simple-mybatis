@@ -1,49 +1,84 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zhuyizhuo.java.mybatis.mapper.UserMapper">
-  <resultMap id="BaseResultMap" type="com.zhuyizhuo.java.mybatis.bean.UserBean">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="name" jdbcType="VARCHAR" property="name" typeHandler="com.zhuyizhuo.java.mybatis.handler.TypeHandler"/>
-    <result column="age" jdbcType="VARCHAR" property="age" />
-  </resultMap>
 
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.zhuyizhuo.java.mybatis.bean.UserBean">
-   select t.id,t.name,t.age from simple_mybatis_user t
-   where t.id = #{id}
-  </select>
+    <!-- 基础映射 -->
+    <resultMap id="SimpleResultMap" type="com.zhuyizhuo.java.mybatis.bean.UserBean">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="age" jdbcType="VARCHAR" property="age"/>
+    </resultMap>
 
-  <insert id="testInsert" parameterType="com.zhuyizhuo.java.mybatis.bean.UserBean" useGeneratedKeys="true" keyProperty="id">
-    insert into simple_mybatis_user (id, name,age) values (
-    #{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR,typeHandler=com.zhuyizhuo.java.mybatis.handler.TypeHandler},#{age,jdbcType=VARCHAR}
-    )
-  </insert>
+    <select id="simpleQuery" resultMap="SimpleResultMap" parameterType="com.zhuyizhuo.java.mybatis.bean.UserBean">
+       select t.id,t.name,t.age from simple_mybatis_user t
+       where t.id = #{id}
+    </select>
 
-  <update id="update" parameterType="com.zhuyizhuo.java.mybatis.bean.UserBean">
-    update simple_mybatis_user t set t.name = #{name}
-    where  t.id = #{id}
-  </update>
+    <!-- name字段使用typeHandler的映射start -->
+    <resultMap id="BaseResultMap" type="com.zhuyizhuo.java.mybatis.bean.UserBean">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="name" jdbcType="VARCHAR" property="name"
+                typeHandler="com.zhuyizhuo.java.mybatis.handler.TypeHandler"/>
+        <result column="age" jdbcType="VARCHAR" property="age"/>
+    </resultMap>
 
-  <!-- 关联的嵌套查询 start -->
+    <select id="queryResultUseTypeHandler" resultMap="BaseResultMap" parameterType="com.zhuyizhuo.java.mybatis.bean.UserBean">
+       select t.id,t.name,t.age from simple_mybatis_user t
+       where t.id = #{id}
+    </select>
+    <!-- name字段使用typeHandler的映射end -->
+
+    <!-- 简单的新增  -->
+    <insert id="simpleInsert" parameterType="com.zhuyizhuo.java.mybatis.bean.UserBean">
+        insert into simple_mybatis_user (id, name,age) values (
+        #{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR},#{age,jdbcType=VARCHAR}
+        )
+    </insert>
+
+    <!-- 自增主键的新增 -->
+    <insert id="insertUseGeneratedKeys" parameterType="userBean" useGeneratedKeys="true"
+            keyProperty="id">
+        insert into simple_mybatis_user (id, name,age) values (
+        #{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR},#{age,jdbcType=VARCHAR}
+        )
+    </insert>
+
+    <!-- name字段使用typeHandler的新增 -->
+    <insert id="insertUseTypeHandler" parameterType="com.zhuyizhuo.java.mybatis.bean.UserBean" useGeneratedKeys="true"
+            keyProperty="id">
+        insert into simple_mybatis_user (id, name,age) values (
+        #{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR,typeHandler=com.zhuyizhuo.java.mybatis.handler.TypeHandler},#{age,jdbcType=VARCHAR}
+        )
+    </insert>
+
+    <update id="simpleUpdate" parameterType="com.zhuyizhuo.java.mybatis.bean.UserBean">
+        update simple_mybatis_user t set t.name = #{name},t.age =#{age},t.order_no=#{orderNo}
+        where  t.id = #{id}
+     </update>
+
+    <!-- 关联的嵌套查询 start -->
     <resultMap id="userOrderResultMap" type="com.zhuyizhuo.java.mybatis.resultmap.UserResultMap">
-      <association property="order" column="orderNo"
-                   select="com.zhuyizhuo.java.mybatis.mapper.OrderMapper.selectOrder"/>
+        <association property="order" column="orderNo"
+                     select="com.zhuyizhuo.java.mybatis.mapper.OrderMapper.selectOrder"/>
     </resultMap>
 
     <select id="selectUserOrders" resultMap="userOrderResultMap" parameterType="java.lang.Integer">
       select t.id,t.name,t.age,t.order_No orderNo from simple_mybatis_user t
       where t.id = #{id}
     </select>
-  <!-- end -->
+    <!-- 关联的嵌套查询end -->
 
-  <!-- 关联的嵌套结果 start -->
-  <resultMap id="userOrderResultMap1" type="com.zhuyizhuo.java.mybatis.resultmap.UserResultMap">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="name" jdbcType="VARCHAR" property="name" typeHandler="com.zhuyizhuo.java.mybatis.handler.TypeHandler"/>
-    <result column="age" jdbcType="VARCHAR" property="age" />
-    <association property="order" column="orderNo" resultMap="com.zhuyizhuo.java.mybatis.mapper.OrderMapper.BaseResultMap"/>
-  </resultMap>
+    <!-- 关联的嵌套结果 start -->
+    <resultMap id="userOrderResultMap1" type="com.zhuyizhuo.java.mybatis.resultmap.UserResultMap">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="name" jdbcType="VARCHAR" property="name"
+                typeHandler="com.zhuyizhuo.java.mybatis.handler.TypeHandler"/>
+        <result column="age" jdbcType="VARCHAR" property="age"/>
+        <association property="order" column="orderNo"
+                     resultMap="com.zhuyizhuo.java.mybatis.mapper.OrderMapper.BaseResultMap"/>
+    </resultMap>
 
-  <select id="selectUserOrderResult" resultMap="userOrderResultMap1" parameterType="java.lang.Integer">
+    <select id="selectUserOrderResult" resultMap="userOrderResultMap1" parameterType="java.lang.Integer">
       select t.id,t.name,t.age,t.order_No orderNo,
         simple_mybatis_order.id,
         simple_mybatis_order.order_no,
@@ -53,5 +88,7 @@
       where t.id = #{id}
       and t.order_No = simple_mybatis_order.order_no
     </select>
-  <!-- end -->
+    <!-- 关联的嵌套结果end -->
+
+
 </mapper>

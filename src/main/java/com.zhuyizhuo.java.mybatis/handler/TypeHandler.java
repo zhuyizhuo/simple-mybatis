@@ -14,15 +14,17 @@ import java.sql.SQLException;
  */
 @MappedJdbcTypes(JdbcType.VARCHAR)
 public class TypeHandler extends BaseTypeHandler<String> {
+
+    @Override
     public void setNonNullParameter(PreparedStatement ps, int i, String parameter, JdbcType jdbcType) throws SQLException {
-        ps.setString(i, parameter + "typehandler");
+        ps.setString(i, parameter + " insert-with-typeHandler");
     }
 
     @Override
     public String getNullableResult(ResultSet rs, String columnName)
             throws SQLException {
         String string = rs.getString(columnName);
-        string = string.replaceAll("-typehandler"," result");
+        string += " query-with-typeHandler";
         return string;
     }
 

@@ -11,13 +11,29 @@ import java.util.List;
  */
 public interface UserMapper {
 
-    List<UserBean> selectByExample(UserBean userBean);
+    List<UserBean> simpleQuery(UserBean userBean);
 
-    int testInsert(UserBean ub);
+    List<UserBean> queryResultUseTypeHandler(UserBean userBean);
 
-    int update(UserBean userBean);
+    int simpleInsert(UserBean ub);
 
+    int insertUseGeneratedKeys(UserBean ub);
+
+    int insertUseTypeHandler(UserBean ub);
+
+    int simpleUpdate(UserBean userBean);
+
+    /**
+     * 关联的嵌套查询
+     * @param userId
+     * @return
+     */
     UserResultMap selectUserOrders(@Param("id") int userId);
 
+    /**
+     * 关联的嵌套结果
+     * @param userId
+     * @return
+     */
     UserResultMap selectUserOrderResult(@Param("id") int userId);
 }

@@ -8,6 +8,7 @@ public class UserBean {
     private int id;
     private String name;
     private String age;
+    private String orderNo;
 
     public int getId() {
         return id;
@@ -31,5 +32,11 @@ public class UserBean {
 
     public void setAge(String age) {
         this.age = age;
+    }
+    public String getOrderNo() {
+        return orderNo;
+    }
+    public void setOrderNo(String orderNo) {
+        this.orderNo = orderNo;
     }
 }
