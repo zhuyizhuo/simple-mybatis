@@ -30,9 +30,9 @@ public class TestInsertUpdate {
         try {
 //            testInsert();
 
-            insertUseGeneratedKeys();
+//            insertUseGeneratedKeys();
 
-//            insertUseTypeHandler();
+            insertUseTypeHandler();
 
 //            testUpdate();
         } catch (Exception e){

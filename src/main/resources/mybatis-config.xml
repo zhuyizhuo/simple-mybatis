@@ -3,9 +3,19 @@
         PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
+    <!-- 扫描包内的bean自动注册别名,如果没有注解的情况下,别名默认为首字母小写 -->
     <typeAliases>
         <package name="com.zhuyizhuo.java.mybatis.bean"/>
     </typeAliases>
+
+    <!-- 除非显式的设置，否则TypeHandler在ResultMap中将是无效的。
+        如果希望在ResultMap中使用TypeHandler，那么设置@MappedJdbcTypes注解的includeNullJdbcType=true即可。
+         然而从Mybatis 3.4.0开始，如果只有一个注册的TypeHandler来处理Java类型，
+         那么它将是ResultMap使用Java类型时的默认值（即使没有includeNullJdbcType=true）
+          打开此段注释 验证只有一个注册的TypeHandler时 ResultMap不显式设置也会使用TypeHandler  -->
+   <!-- <typeHandlers>
+        <package name="com.zhuyizhuo.java.mybatis.handler"/>
+    </typeHandlers>-->
 
     <plugins>
         <!-- 自定义插件 -->

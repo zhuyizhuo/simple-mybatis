@@ -18,7 +18,7 @@
     <resultMap id="BaseResultMap" type="com.zhuyizhuo.java.mybatis.bean.UserBean">
         <id column="id" jdbcType="INTEGER" property="id"/>
         <result column="name" jdbcType="VARCHAR" property="name"
-                typeHandler="com.zhuyizhuo.java.mybatis.handler.TypeHandler"/>
+                typeHandler="com.zhuyizhuo.java.mybatis.handler.VarcharTypeHandler"/>
         <result column="age" jdbcType="VARCHAR" property="age"/>
     </resultMap>
 
@@ -47,7 +47,7 @@
     <insert id="insertUseTypeHandler" parameterType="com.zhuyizhuo.java.mybatis.bean.UserBean" useGeneratedKeys="true"
             keyProperty="id">
         insert into simple_mybatis_user (id, name,age) values (
-        #{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR,typeHandler=com.zhuyizhuo.java.mybatis.handler.TypeHandler},#{age,jdbcType=VARCHAR}
+        #{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR,typeHandler=com.zhuyizhuo.java.mybatis.handler.VarcharTypeHandler},#{age,jdbcType=VARCHAR}
         )
     </insert>
 
@@ -56,8 +56,9 @@
         where  t.id = #{id}
      </update>
 
-    <!-- 关联的嵌套查询 start -->
+    <!-- 关联的嵌套查询 1:1 start -->
     <resultMap id="userOrderMap" type="com.zhuyizhuo.java.mybatis.resultmap.UserResultMap">
+        <id column="id" jdbcType="INTEGER" property="id"/>
         <association property="order" column="orderNo"
                      select="com.zhuyizhuo.java.mybatis.mapper.OrderMapper.selectOrder"/>
     </resultMap>
@@ -72,13 +73,13 @@
     <resultMap id="userOrderResultMap" type="com.zhuyizhuo.java.mybatis.resultmap.UserResultMap">
         <id column="id" jdbcType="INTEGER" property="id"/>
         <result column="name" jdbcType="VARCHAR" property="name"
-                typeHandler="com.zhuyizhuo.java.mybatis.handler.TypeHandler"/>
+                typeHandler="com.zhuyizhuo.java.mybatis.handler.VarcharTypeHandler"/>
         <result column="age" jdbcType="VARCHAR" property="age"/>
         <association property="order" column="orderNo"
                      resultMap="com.zhuyizhuo.java.mybatis.mapper.OrderMapper.BaseResultMap"/>
     </resultMap>
 
-    <!-- int为mybatis内嵌 -->
+    <!-- int为mybatis内嵌别名 -->
     <select id="selectUserOrderResult" resultMap="userOrderResultMap" parameterType="int">
       select t.id,t.name,t.age,t.order_No orderNo,
         simple_mybatis_order.id,
@@ -91,5 +92,40 @@
     </select>
     <!-- 关联的嵌套结果end -->
 
+    <!-- 关联的嵌套查询1:N start -->
+    <resultMap id="one2ManyResultMap" type="com.zhuyizhuo.java.mybatis.resultmap.One2ManyResultMap">
+            <id column="id" jdbcType="INTEGER" property="id"/>
+           <collection property="order" column="orderNo"
+                       select="com.zhuyizhuo.java.mybatis.mapper.OrderMapper.selectOrder"
+                       ofType="com.zhuyizhuo.java.mybatis.bean.Order" />
+    </resultMap>
 
+    <select id="selectOne2Many" resultMap="one2ManyResultMap" parameterType="java.lang.Integer">
+      select t.id,t.name,t.age,t.order_No orderNo from simple_mybatis_user t
+      where t.id = #{id}
+    </select>
+    <!-- 关联的嵌套查询1:N  end -->
+
+    <!-- 关联的嵌套结果1:N start 此处使用columnPrefix 是因为有两个叫ID的字段 为了将两个ID区分开 所以添加前缀  -->
+    <resultMap id="user2OrderListResultMap" type="com.zhuyizhuo.java.mybatis.resultmap.One2ManyResultMap">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="name" jdbcType="VARCHAR" property="name" />
+        <result column="age" jdbcType="VARCHAR" property="age"/>
+        <collection property="order" column="orderNo"
+                    ofType="com.zhuyizhuo.java.mybatis.bean.Order"
+                    resultMap="com.zhuyizhuo.java.mybatis.mapper.OrderMapper.BaseResultMap" columnPrefix="order_"/>
+    </resultMap>
+
+    <!-- int为mybatis内嵌别名 -->
+    <select id="selectUser2OrderListResult" resultMap="user2OrderListResultMap" parameterType="int">
+      select t.id,t.name,t.age,t.order_No orderNo,
+        simple_mybatis_order.id as order_id,
+        simple_mybatis_order.order_no as order_order_no,
+        simple_mybatis_order.user_id as order_user_id,
+        simple_mybatis_order.gmt_create as order_gmt_create
+       from simple_mybatis_user t, simple_mybatis_order
+      where t.id = #{id}
+      and t.order_No = simple_mybatis_order.order_no
+    </select>
+    <!-- 关联的嵌套结果end -->
 </mapper>

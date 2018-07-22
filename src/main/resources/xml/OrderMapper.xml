@@ -5,7 +5,7 @@
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="order_no" jdbcType="VARCHAR" property="orderNo"/>
     <result column="user_id" jdbcType="VARCHAR" property="userId" />
-    <result column="gmt_create" jdbcType="TIME" property="gmtCreate" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
   </resultMap>
 
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.zhuyizhuo.java.mybatis.bean.Order">

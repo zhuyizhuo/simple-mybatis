@@ -1,8 +1,8 @@
 package com.zhuyizhuo.java.mybatis.test;
 
 import com.zhuyizhuo.java.mybatis.bean.Order;
-import com.zhuyizhuo.java.mybatis.bean.UserBean;
 import com.zhuyizhuo.java.mybatis.mapper.UserMapper;
+import com.zhuyizhuo.java.mybatis.resultmap.One2ManyResultMap;
 import com.zhuyizhuo.java.mybatis.resultmap.UserResultMap;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.RowBounds;
@@ -12,6 +12,8 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -48,12 +50,15 @@ public class TestComplexQuery {
 
             UserMapper testMapper = sqlSession.getMapper(UserMapper.class);
 
-            queryPageing(sqlSession);
+//            queryPageing(sqlSession);
 
-            testUnionQuery(sqlSession,testMapper);
+//            testUnionQuery(sqlSession,testMapper);
 
-            testUnionQueryResult(sqlSession,testMapper);
+//            testUnionQueryResult(sqlSession,testMapper);
 
+//            selectOne2Many(sqlSession,testMapper);
+
+            selectUser2OrderListResult(sqlSession,testMapper);
             sqlSession.close();
         }catch (Exception e){
             e.printStackTrace();
@@ -74,14 +79,26 @@ public class TestComplexQuery {
      *  嵌套查询
      */
     private static void testUnionQuery(SqlSession sqlSession, UserMapper testMapper) {
-        UserBean userBean = new UserBean();
-        userBean.setId(1);
-        UserResultMap userResultMap = testMapper.selectUserOrders(1);
-        System.out.println("userResultMap : " + userResultMap);
+        UserResultMap userResultMap = testMapper.selectUserOrders(2);
+        System.out.println("testUnionQuery userResultMap : " + userResultMap);
         if (userResultMap != null) {
-            System.out.println("testUnionQuery : " + userResultMap.getName());
+            System.out.println("testUnionQuery userName : " + userResultMap.getName());
             if (userResultMap.getOrder() != null) {
-                System.out.println("orderId : " + userResultMap.getOrder().getId());
+                System.out.println("testUnionQuery orderId : " + userResultMap.getOrder().getId());
+            }
+        }
+    }
+
+    /**
+     *  嵌套查询1:N
+     */
+    private static void selectOne2Many(SqlSession sqlSession, UserMapper testMapper) {
+        One2ManyResultMap userResultMap = testMapper.selectOne2Many(1);
+        System.out.println("selectOne2Many userResultMap: " + userResultMap);
+        if (userResultMap != null) {
+            System.out.println("selectOne2Many userName : " + userResultMap.getName());
+            if (userResultMap.getOrder() != null) {
+                System.out.println("selectOne2Many orderSize : " + userResultMap.getOrder().size());
             }
         }
     }
@@ -90,8 +107,6 @@ public class TestComplexQuery {
      * 嵌套结果
      */
     private static void testUnionQueryResult(SqlSession sqlSession, UserMapper testMapper) {
-        UserBean userBean = new UserBean();
-        userBean.setId(1);
         UserResultMap userResultMap = testMapper.selectUserOrderResult(1);
         System.out.println("testUnionQueryResult userResultMap : " + userResultMap);
         if (userResultMap != null) {
@@ -102,4 +117,27 @@ public class TestComplexQuery {
         }
     }
 
+    /**
+     * 嵌套结果1;N
+     */
+    private static void selectUser2OrderListResult(SqlSession sqlSession, UserMapper testMapper) {
+        One2ManyResultMap userResultMap = testMapper.selectUser2OrderListResult(1);
+        System.out.println("selectUser2OrderListResult userResultMap : " + userResultMap);
+        if (userResultMap != null) {
+            System.out.println("selectUser2OrderListResult name : " + userResultMap.getName());
+            if (userResultMap.getOrder() != null) {
+                System.out.println("selectUser2OrderListResult orderSize : " + userResultMap.getOrder().size());
+                for (int i = 0; i < userResultMap.getOrder().size(); i++) {
+                    Order order = userResultMap.getOrder().get(i);
+                    Date gmtCreate = order.getGmtCreate();
+                    if (gmtCreate != null) {
+                        //TODO 格式化时间和数据库时间不一致?
+                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                        String format = sdf.format(gmtCreate);
+                        System.out.println("orderId:" + order.getId() + " -- time:" + format);
+                    }
+                }
+            }
+        }
+    }
 }
