@@ -131,7 +131,6 @@ public class TestComplexQuery {
                     Order order = userResultMap.getOrder().get(i);
                     Date gmtCreate = order.getGmtCreate();
                     if (gmtCreate != null) {
-                        //TODO 格式化时间和数据库时间不一致?
                         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                         String format = sdf.format(gmtCreate);
                         System.out.println("orderId:" + order.getId() + " -- time:" + format);
