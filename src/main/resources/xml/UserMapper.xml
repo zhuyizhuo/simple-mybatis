@@ -19,6 +19,18 @@
        select t.id,t.name,t.age from ${@com.zhuyizhuo.java.mybatis.constance.MybatisConstace@tableName} t
        where t.id = #{id}
     </select>
+
+    <!-- 使用枚举的查询 -->
+    <select id="simpleQueryUseEnums" resultMap="SimpleResultMap" parameterType="com.zhuyizhuo.java.mybatis.bean.UserBean">
+       select t.id,t.name,t.age from ${@com.zhuyizhuo.java.mybatis.enums.MybatisEnums@SIMPLE_MYBATIS_USER} t
+       where t.id = #{id}
+    </select>
+
+    <!-- 使用枚举方法的查询 -->
+    <select id="simpleQueryUseEnums2" resultMap="SimpleResultMap" parameterType="com.zhuyizhuo.java.mybatis.bean.UserBean">
+       select t.id,t.name,t.age from ${@com.zhuyizhuo.java.mybatis.enums.MybatisEnums2@SIMPLE_MYBATIS_USER.getTableName()} t
+       where t.id = #{id}
+    </select>
     <!-- 基础映射end  -->
 
     <!-- name字段使用typeHandler的映射start -->

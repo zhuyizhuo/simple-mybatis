@@ -33,7 +33,11 @@ public class TestSimpleQuery {
         try {
 //            testSimpleQuery();
 
-            simpleQueryUseConstance();
+//            simpleQueryUseConstance();
+
+//            simpleQueryUseEnums();
+
+            simpleQueryUseEnums2();
 
 //            testQueryCache();
 
@@ -76,6 +80,47 @@ public class TestSimpleQuery {
         System.out.println("simpleQueryUseConstance : " + userBeans);
         if (userBeans != null){
             System.out.println("simpleQueryUseConstance : " + userBeans.get(0).getName());
+        }
+
+        if (sqlSession != null){
+            sqlSession.close();
+        }
+    }
+
+    /**
+     * 测试XML使用枚举查询
+     * @throws Exception
+     */
+    private static void simpleQueryUseEnums() throws Exception {
+        SqlSession sqlSession = getSqlSession();
+        UserMapper testMapper = sqlSession.getMapper(UserMapper.class);
+        UserBean userBean = new UserBean();
+        userBean.setId(1);
+        List<UserBean> userBeans = testMapper.simpleQueryUseEnums(userBean);
+        System.out.println("simpleQueryUseEnums : " + userBeans);
+        if (userBeans != null){
+            System.out.println("simpleQueryUseEnums : " + userBeans.get(0).getName());
+        }
+
+        if (sqlSession != null){
+            sqlSession.close();
+        }
+    }
+
+    /**
+     * 测试XML使用枚举查询
+     * mybatis xml引用java中的枚举 并调用枚举的方法
+     * @throws Exception
+     */
+    private static void simpleQueryUseEnums2() throws Exception {
+        SqlSession sqlSession = getSqlSession();
+        UserMapper testMapper = sqlSession.getMapper(UserMapper.class);
+        UserBean userBean = new UserBean();
+        userBean.setId(1);
+        List<UserBean> userBeans = testMapper.simpleQueryUseEnums2(userBean);
+        System.out.println("simpleQueryUseEnums2 : " + userBeans);
+        if (userBeans != null){
+            System.out.println("simpleQueryUseEnums2 : " + userBeans.get(0).getName());
         }
 
         if (sqlSession != null){

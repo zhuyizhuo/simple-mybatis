@@ -28,6 +28,20 @@ public interface UserMapper {
     List<UserBean> simpleQueryUseConstance(UserBean userBean);
 
     /**
+     * mybatis xml引用java中的枚举
+     * @param userBean
+     * @return
+     */
+    List<UserBean> simpleQueryUseEnums(UserBean userBean);
+
+    /**
+     *  mybatis xml引用java中的枚举 并调用枚举的方法
+     * @param userBean
+     * @return
+     */
+    List<UserBean> simpleQueryUseEnums2(UserBean userBean);
+
+    /**
      * 查询结果使用TypeHandler处理
      * @param userBean
      * @return
