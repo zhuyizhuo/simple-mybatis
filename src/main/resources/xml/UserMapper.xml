@@ -65,7 +65,14 @@
 
     <select id="selectUserOrders" resultMap="userOrderMap" parameterType="java.lang.Integer">
       select t.id,t.name,t.age,t.order_No orderNo from simple_mybatis_user t
-      where t.id = #{id}
+      where 1=1
+        <if test="id != null and id != ''">
+       and t.id = #{id}
+        </if>
+    </select>
+
+    <select id="selectUserOrderLists" resultMap="userOrderMap" >
+        select t.id,t.name,t.age,t.order_No orderNo from simple_mybatis_user t
     </select>
     <!-- 关联的嵌套查询end -->
 

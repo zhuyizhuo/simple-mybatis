@@ -63,6 +63,12 @@ public interface UserMapper {
     UserResultMap selectUserOrders(@Param("id") int userId);
 
     /**
+     * 关联的嵌套查询1:1
+     * @return
+     */
+    List<UserResultMap> selectUserOrderLists();
+
+    /**
      * 关联的嵌套查询1:N
      * @param userId
      * @return

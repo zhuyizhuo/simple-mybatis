@@ -12,6 +12,7 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.lang.reflect.Modifier;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -58,7 +59,9 @@ public class TestComplexQuery {
 
 //            selectOne2Many(sqlSession,testMapper);
 
-            selectUser2OrderListResult(sqlSession,testMapper);
+//            selectUser2OrderListResult(sqlSession,testMapper);
+
+            selectUserOrderLists(sqlSession,testMapper);
             sqlSession.close();
         }catch (Exception e){
             e.printStackTrace();
@@ -86,6 +89,20 @@ public class TestComplexQuery {
             if (userResultMap.getOrder() != null) {
                 System.out.println("testUnionQuery orderId : " + userResultMap.getOrder().getId());
             }
+        }
+    }
+
+    /**
+     *  嵌套查询 N+1问题
+     *  查询出来的是个集合
+     *  对于集合的每个关联字段 再次查询导致N+1问题
+     *  官方不建议使用嵌套查询
+     */
+    private static void selectUserOrderLists(SqlSession sqlSession, UserMapper testMapper) {
+        List<UserResultMap> userList = testMapper.selectUserOrderLists();
+        System.out.println("testUnionQuery userResultMap : " + userList);
+        if (userList != null) {
+            System.out.println("testUnionQuery userName : " + userList.size());
         }
     }
 

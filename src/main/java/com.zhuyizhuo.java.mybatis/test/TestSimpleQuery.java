@@ -3,6 +3,7 @@ package com.zhuyizhuo.java.mybatis.test;
 import com.zhuyizhuo.java.mybatis.bean.UserBean;
 import com.zhuyizhuo.java.mybatis.mapper.UserMapper;
 import org.apache.ibatis.io.Resources;
+import org.apache.ibatis.logging.LogFactory;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
@@ -23,6 +24,8 @@ public class TestSimpleQuery {
         String resource = "mybatis-config.xml";
         InputStream inputStream = Resources.getResourceAsStream(resource);
         SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+//        LogFactory.useSlf4jLogging();
+        LogFactory.useStdOutLogging();
         return sqlSessionFactory.openSession();
     }
 
@@ -30,9 +33,9 @@ public class TestSimpleQuery {
         try {
             testSimpleQuery();
 
-            testQueryCache();
+//            testQueryCache();
 
-            queryResultUseTypeHandler();
+//            queryResultUseTypeHandler();
         } catch (Exception e){
             e.printStackTrace();
         }
@@ -45,7 +48,6 @@ public class TestSimpleQuery {
     private static void testSimpleQuery() throws Exception {
         SqlSession sqlSession = getSqlSession();
         UserMapper testMapper = sqlSession.getMapper(UserMapper.class);
-
         UserBean userBean = new UserBean();
         userBean.setId(1);
         List<UserBean> userBeans = testMapper.simpleQuery(userBean);

@@ -3,6 +3,11 @@
         PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
+
+    <settings>
+        <setting name="logImpl" value="SLF4J"/>
+    </settings>
+
     <!-- 扫描包内的bean自动注册别名,如果没有注解的情况下,别名默认为首字母小写 -->
     <typeAliases>
         <package name="com.zhuyizhuo.java.mybatis.bean"/>
@@ -23,8 +28,8 @@
         <plugin interceptor="com.zhuyizhuo.java.mybatis.plugins.ParameterHandlerPlugin"></plugin>
 
         <!--  分页插件 -->
-        <plugin interceptor="com.github.pagehelper.PageInterceptor">
-        </plugin>
+       <!-- <plugin interceptor="com.github.pagehelper.PageInterceptor">
+        </plugin>-->
     </plugins>
 
     <!-- 数据库连接 -->
