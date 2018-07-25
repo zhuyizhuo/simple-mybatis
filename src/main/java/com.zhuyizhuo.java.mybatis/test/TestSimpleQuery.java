@@ -31,7 +31,9 @@ public class TestSimpleQuery {
 
     public static void main(String[] args) throws Exception {
         try {
-            testSimpleQuery();
+//            testSimpleQuery();
+
+            simpleQueryUseConstance();
 
 //            testQueryCache();
 
@@ -54,6 +56,26 @@ public class TestSimpleQuery {
         System.out.println("testSimpleQuery : " + userBeans);
         if (userBeans != null){
             System.out.println("testSimpleQuery : " + userBeans.get(0).getName());
+        }
+
+        if (sqlSession != null){
+            sqlSession.close();
+        }
+    }
+
+    /**
+     * 测试XML使用常量查询
+     * @throws Exception
+     */
+    private static void simpleQueryUseConstance() throws Exception {
+        SqlSession sqlSession = getSqlSession();
+        UserMapper testMapper = sqlSession.getMapper(UserMapper.class);
+        UserBean userBean = new UserBean();
+        userBean.setId(1);
+        List<UserBean> userBeans = testMapper.simpleQueryUseConstance(userBean);
+        System.out.println("simpleQueryUseConstance : " + userBeans);
+        if (userBeans != null){
+            System.out.println("simpleQueryUseConstance : " + userBeans.get(0).getName());
         }
 
         if (sqlSession != null){

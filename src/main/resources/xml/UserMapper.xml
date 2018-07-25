@@ -14,6 +14,13 @@
        where t.id = #{id}
     </select>
 
+    <!-- 使用常量的查询 -->
+    <select id="simpleQueryUseConstance" resultMap="SimpleResultMap" parameterType="com.zhuyizhuo.java.mybatis.bean.UserBean">
+       select t.id,t.name,t.age from ${@com.zhuyizhuo.java.mybatis.constance.MybatisConstace@tableName} t
+       where t.id = #{id}
+    </select>
+    <!-- 基础映射end  -->
+
     <!-- name字段使用typeHandler的映射start -->
     <resultMap id="BaseResultMap" type="com.zhuyizhuo.java.mybatis.bean.UserBean">
         <id column="id" jdbcType="INTEGER" property="id"/>

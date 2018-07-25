@@ -21,6 +21,13 @@ public interface UserMapper {
     List<UserBean> simpleQuery(UserBean userBean);
 
     /**
+     * mybatis xml引用java中的常量
+     * @param userBean
+     * @return
+     */
+    List<UserBean> simpleQueryUseConstance(UserBean userBean);
+
+    /**
      * 查询结果使用TypeHandler处理
      * @param userBean
      * @return
