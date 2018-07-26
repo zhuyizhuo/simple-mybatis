@@ -23,6 +23,7 @@ import java.util.Properties;
         args = {MappedStatement.class,Object.class})})
 public class ExecutorPlugin implements Interceptor {
 
+    @Override
     public Object intercept(Invocation invocation) throws Throwable {
         System.out.println("----ExecutorPlugin start----");
         Object[] args = invocation.getArgs();
@@ -36,11 +37,11 @@ public class ExecutorPlugin implements Interceptor {
         System.out.println("----ExecutorPlugin end----");
         return invocation.proceed();
     }
-
+    @Override
     public Object plugin(Object target) {
         return Plugin.wrap(target, this);
     }
-
+    @Override
     public void setProperties(Properties properties) {
 
     }

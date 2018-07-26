@@ -23,7 +23,7 @@ import java.util.Properties;
         method = "setParameters",
         args = PreparedStatement.class)})
 public class ParameterHandlerPlugin implements Interceptor {
-
+    @Override
     public Object intercept(Invocation invocation) throws Throwable {
         System.out.println("----ParameterHandlerPlugin start----");
         Object[] args = invocation.getArgs();
@@ -36,11 +36,11 @@ public class ParameterHandlerPlugin implements Interceptor {
         System.out.println("----ParameterHandlerPlugin end----");
         return invocation.proceed();
     }
-
+    @Override
     public Object plugin(Object target) {
         return Plugin.wrap(target, this);
     }
-
+    @Override
     public void setProperties(Properties properties) {
 
     }

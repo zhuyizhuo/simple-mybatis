@@ -14,19 +14,19 @@
        where t.id = #{id}
     </select>
 
-    <!-- 使用常量的查询 -->
+    <!-- 使用 常量 的查询 -->
     <select id="simpleQueryUseConstance" resultMap="SimpleResultMap" parameterType="com.zhuyizhuo.java.mybatis.bean.UserBean">
-       select t.id,t.name,t.age from ${@com.zhuyizhuo.java.mybatis.constance.MybatisConstace@tableName} t
+       select t.id,t.name,t.age from ${@com.zhuyizhuo.java.mybatis.constance.MybatisConstace@SIMPLE_MYBATIS_USER} t
        where t.id = #{id}
     </select>
 
-    <!-- 使用枚举的查询 -->
+    <!-- 使用 枚举 的查询 -->
     <select id="simpleQueryUseEnums" resultMap="SimpleResultMap" parameterType="com.zhuyizhuo.java.mybatis.bean.UserBean">
        select t.id,t.name,t.age from ${@com.zhuyizhuo.java.mybatis.enums.MybatisEnums@SIMPLE_MYBATIS_USER} t
        where t.id = #{id}
     </select>
 
-    <!-- 使用枚举方法的查询 -->
+    <!-- 使用 枚举中的方法 的查询 -->
     <select id="simpleQueryUseEnums2" resultMap="SimpleResultMap" parameterType="com.zhuyizhuo.java.mybatis.bean.UserBean">
        select t.id,t.name,t.age from ${@com.zhuyizhuo.java.mybatis.enums.MybatisEnums2@SIMPLE_MYBATIS_USER.getTableName()} t
        where t.id = #{id}

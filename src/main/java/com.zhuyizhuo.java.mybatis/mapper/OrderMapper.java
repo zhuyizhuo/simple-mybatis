@@ -10,5 +10,10 @@ import java.util.List;
  */
 public interface OrderMapper {
 
+    /**
+     * 查询订单
+     * @param orderNo
+     * @return
+     */
     Order selectOrder(String orderNo);
 }

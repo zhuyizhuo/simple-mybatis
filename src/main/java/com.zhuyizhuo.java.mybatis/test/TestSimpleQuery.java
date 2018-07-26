@@ -12,6 +12,7 @@ import java.io.InputStream;
 import java.util.List;
 
 /**
+ * 测试简单查询
  * Created by yizhuo on 2018/7/21.
  */
 public class TestSimpleQuery {
@@ -24,7 +25,7 @@ public class TestSimpleQuery {
         String resource = "mybatis-config.xml";
         InputStream inputStream = Resources.getResourceAsStream(resource);
         SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
-//        LogFactory.useSlf4jLogging();
+
         LogFactory.useStdOutLogging();
         return sqlSessionFactory.openSession();
     }
@@ -33,11 +34,11 @@ public class TestSimpleQuery {
         try {
 //            testSimpleQuery();
 
-//            simpleQueryUseConstance();
+            simpleQueryUseConstance();
 
 //            simpleQueryUseEnums();
 
-            simpleQueryUseEnums2();
+//            simpleQueryUseEnums2();
 
 //            testQueryCache();
 
