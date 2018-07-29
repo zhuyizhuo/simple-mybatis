@@ -25,9 +25,9 @@
 
 ###### 扩展部分
 
-* 自定义handler用法
+* 自定义TypeHandler
 
-* 自定义plugin用法
+* 自定义plugin
 
 * 手写简单版的mybatis用来理解框架原理
 

@@ -2,7 +2,6 @@ package com.zhuyizhuo.java.mybatis.v1;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
-import java.lang.reflect.Proxy;
 
 /**
  * @author yizhuo
@@ -20,7 +19,7 @@ public class YZMapperProxy implements InvocationHandler {
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
         String name = method.getDeclaringClass().getName();
-        if(YZConfiguration.mapping.nameSpace.equals(name)){
+        if(YZConfiguration.mapping.NAME_SPACE.equals(name)){
             String s = YZConfiguration.mapping.methodMap.get(method.getName());
             return sqlSession.selectOne(s,args[0]);
         }
