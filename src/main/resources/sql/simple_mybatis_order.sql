@@ -20,8 +20,9 @@ SET FOREIGN_KEY_CHECKS=0;
 DROP TABLE IF EXISTS `simple_mybatis_order`;
 CREATE TABLE `simple_mybatis_order` (
   `id` int(32) NOT NULL AUTO_INCREMENT,
-  `order_no` varchar(32) DEFAULT NULL,
-  `user_id` varchar(32) DEFAULT NULL,
-  `gmt_create` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `order_no` varchar(32) DEFAULT NULL COMMENT '订单号',
+  `user_id` varchar(32) DEFAULT NULL COMMENT '用户ID',
+  `gmt_create` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '创建时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='订单表';
+

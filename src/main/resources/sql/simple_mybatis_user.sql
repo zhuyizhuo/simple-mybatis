@@ -19,10 +19,16 @@ SET FOREIGN_KEY_CHECKS=0;
 -- ----------------------------
 DROP TABLE IF EXISTS `simple_mybatis_user`;
 CREATE TABLE `simple_mybatis_user` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `age` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT 'test-mybatis',
-  `order_no` varchar(20) DEFAULT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `name` varchar(20) DEFAULT NULL COMMENT '姓名\r\n1212',
+  `age` varchar(20) DEFAULT NULL COMMENT '年龄',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8 COMMENT='用户表';
+
+-- ----------------------------
+-- Records of simple_mybatis_user
+-- ----------------------------
+INSERT INTO simple_mybatis_user VALUES ('1', '66632-typehandler', null);
+INSERT INTO simple_mybatis_user VALUES ('2', '5522-typehandler', null);
+INSERT INTO simple_mybatis_user VALUES ('3', '33-typehandler', null);
 

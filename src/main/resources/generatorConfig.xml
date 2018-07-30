@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+
+    <context id="context1" targetRuntime="MyBatis3">
+
+        <!-- 这里的type里写的是你的实现类的类全路径 -->
+       <!-- <commentGenerator type="com.zhuyizhuo.java.mybatis.test.generator.MyCommentGenerator" />-->
+
+        <!-- mysql数据库配置 -->
+        <jdbcConnection driverClass="com.mysql.cj.jdbc.Driver"
+                        connectionURL="jdbc:mysql://localhost:3306/yizhuo?useUnicode=true&amp;
+                characterEncoding=utf-8&amp;useSSL=false&amp;useJDBCCompliantTimezoneShift=true&amp;
+                useLegacyDatetimeCode=false&amp;serverTimezone=Asia/Shanghai"
+                        userId="root"
+                        password="123456">
+            <property name="useInformationSchema" value="true"></property>
+        </jdbcConnection>
+
+        <!-- dto class -->
+        <javaModelGenerator targetPackage="model"
+                            targetProject="C:\Users\yizhuo\Desktop">
+            <property name="enableSubPackages" value="false" />
+            <property name="trimStrings" value="true" />
+        </javaModelGenerator>
+
+        <!-- mybatis xml file -->
+        <sqlMapGenerator targetPackage="xml"
+                         targetProject="C:\Users\yizhuo\Desktop">
+            <property name="enableSubPackages" value="false" />
+        </sqlMapGenerator>
+
+        <!-- dao Mapper 配置 -->
+        <javaClientGenerator type="XMLMAPPER"
+                             targetPackage="dao" targetProject="C:\Users\yizhuo\Desktop">
+            <property name="enableSubPackages" value="false" />
+        </javaClientGenerator>
+
+
+        <!--不生成帮助类（Exmaples） -->
+        <!-- enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
+            enableSelectByExample="false" selectByExampleQueryId="false" -->
+        <!--已生成的表 <table schema="demo" tableName="USER" domainObjectName="User"></table> -->
+        <table schema="yizhuo" tableName="simple_mybatis_user" domainObjectName="UserPOJO">
+        </table>
+    </context>
+</generatorConfiguration>

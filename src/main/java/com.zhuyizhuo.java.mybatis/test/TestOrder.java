@@ -10,7 +10,11 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import java.io.InputStream;
 
 /**
- * Created by yizhuo on 2018/7/15.
+ * 测试order简单查询
+ * create date:  2018/7/15.
+ * @since 1.0
+ * @version 1.0
+ * @author  yizhuo
  */
 public class TestOrder {
 
