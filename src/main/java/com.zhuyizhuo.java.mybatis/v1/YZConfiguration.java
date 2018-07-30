@@ -12,7 +12,7 @@ public class YZConfiguration {
 
 
     public static class mapping{
-        public static final String nameSpace = "com.zhuyizhuo.java.mybatis.v1.mapper.TestMapper";
+        public static final String NAME_SPACE = "com.zhuyizhuo.java.mybatis.v1.mapper.TestMapper";
 
         public static Map<String,String> methodMap = new ConcurrentHashMap();
 
