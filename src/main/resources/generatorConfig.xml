@@ -21,20 +21,20 @@
 
         <!-- dto class -->
         <javaModelGenerator targetPackage="model"
-                            targetProject="C:\Users\yizhuo\Desktop">
+                            targetProject="C:\Users\yizhuo\Desktop\generator">
             <property name="enableSubPackages" value="false" />
             <property name="trimStrings" value="true" />
         </javaModelGenerator>
 
         <!-- mybatis xml file -->
         <sqlMapGenerator targetPackage="xml"
-                         targetProject="C:\Users\yizhuo\Desktop">
+                         targetProject="C:\Users\yizhuo\Desktop\generator">
             <property name="enableSubPackages" value="false" />
         </sqlMapGenerator>
 
         <!-- dao Mapper 配置 -->
         <javaClientGenerator type="XMLMAPPER"
-                             targetPackage="dao" targetProject="C:\Users\yizhuo\Desktop">
+                             targetPackage="dao" targetProject="C:\Users\yizhuo\Desktop\generator">
             <property name="enableSubPackages" value="false" />
         </javaClientGenerator>
 
@@ -43,7 +43,7 @@
         <!-- enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
             enableSelectByExample="false" selectByExampleQueryId="false" -->
         <!--已生成的表 <table schema="demo" tableName="USER" domainObjectName="User"></table> -->
-        <table schema="yizhuo" tableName="simple_mybatis_user" domainObjectName="UserPOJO">
+        <table schema="yizhuo" tableName="simple_mybatis_order" domainObjectName="OrderPOJO">
         </table>
     </context>
 </generatorConfiguration>
