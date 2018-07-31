@@ -2,6 +2,7 @@ package com.zhuyizhuo.java.mybatis.mapper;
 
 import com.zhuyizhuo.java.mybatis.bean.Order;
 import com.zhuyizhuo.java.mybatis.bean.UserBean;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -15,5 +16,5 @@ public interface OrderMapper {
      * @param orderNo
      * @return
      */
-    Order selectOrder(String orderNo);
+    Order selectOrder(@Param("orderNo") String orderNo);
 }

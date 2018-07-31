@@ -51,7 +51,7 @@ public class TestComplexQuery {
 
             UserMapper testMapper = sqlSession.getMapper(UserMapper.class);
 
-//            queryPageing(sqlSession);
+            queryPageing(sqlSession);
 
 //            testUnionQuery(sqlSession,testMapper);
 
@@ -61,7 +61,7 @@ public class TestComplexQuery {
 
 //            selectUser2OrderListResult(sqlSession,testMapper);
 
-            selectUserOrderLists(sqlSession,testMapper);
+//            selectUserOrderLists(sqlSession,testMapper);
             sqlSession.close();
         }catch (Exception e){
             e.printStackTrace();
@@ -70,6 +70,7 @@ public class TestComplexQuery {
 
     /**
      * 分页查询
+     * 物理分页
      * @param sqlSession
      */
     private static void queryPageing(SqlSession sqlSession) {

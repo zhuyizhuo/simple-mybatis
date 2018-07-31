@@ -23,13 +23,17 @@
     </typeHandlers>-->
 
     <plugins>
+        <!--  分页插件 -->
+        <plugin interceptor="com.github.pagehelper.PageInterceptor">
+        </plugin>
+
         <!-- 自定义插件 -->
         <plugin interceptor="com.zhuyizhuo.java.mybatis.plugins.ExecutorPlugin"></plugin>
+        <plugin interceptor="com.zhuyizhuo.java.mybatis.plugins.ExecutorQueryPlugin"></plugin>
         <plugin interceptor="com.zhuyizhuo.java.mybatis.plugins.ParameterHandlerPlugin"></plugin>
-
-        <!--  分页插件 -->
-       <!-- <plugin interceptor="com.github.pagehelper.PageInterceptor">
-        </plugin>-->
+        <plugin interceptor="com.zhuyizhuo.java.mybatis.plugins.ParameterHandlerPlugin1"></plugin>
+        <plugin interceptor="com.zhuyizhuo.java.mybatis.plugins.ResultSetHandlerPlugin"></plugin>
+        <plugin interceptor="com.zhuyizhuo.java.mybatis.plugins.StatementHandlerPlugin"></plugin>
     </plugins>
 
     <!-- 数据库连接 -->
