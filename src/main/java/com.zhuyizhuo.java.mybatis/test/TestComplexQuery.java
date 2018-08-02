@@ -51,11 +51,13 @@ public class TestComplexQuery {
 
             UserMapper testMapper = sqlSession.getMapper(UserMapper.class);
 
-            queryPageing(sqlSession);
+//            queryPageing(sqlSession);
 
 //            testUnionQuery(sqlSession,testMapper);
 
-//            testUnionQueryResult(sqlSession,testMapper);
+            testUnionQueryResult(sqlSession,testMapper);
+
+            testUnionQueryResult1(sqlSession,testMapper);
 
 //            selectOne2Many(sqlSession,testMapper);
 
@@ -131,6 +133,20 @@ public class TestComplexQuery {
             System.out.println("testUnionQueryResult name : " + userResultMap.getName());
             if (userResultMap.getOrder() != null) {
                 System.out.println("testUnionQueryResult orderId : " + userResultMap.getOrder().getId());
+            }
+        }
+    }
+
+    /**
+     * 方法重载
+     */
+    private static void testUnionQueryResult1(SqlSession sqlSession, UserMapper testMapper) {
+        UserResultMap userResultMap = testMapper.selectUserOrderResult(null,1);
+        System.out.println("testUnionQueryResult1 userResultMap : " + userResultMap);
+        if (userResultMap != null) {
+            System.out.println("testUnionQueryResult1 name : " + userResultMap.getName());
+            if (userResultMap.getOrder() != null) {
+                System.out.println("testUnionQueryResult1 orderId : " + userResultMap.getOrder().getId());
             }
         }
     }

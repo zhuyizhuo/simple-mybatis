@@ -144,3 +144,35 @@ public abstract class BaseExecutor implements Executor {
 ```
 
 ```
+##### 9.怎么验证一级缓存的存在?
+
+[代码链接](https://github.com/zhuyizhuo/simple-mybatis/blob/master/src/main/java/com.zhuyizhuo.java.mybatis/test/TestSimpleQuery.java)
+
+```java
+同一个sqlsession连续两次查询 第二次会命中mybatis一级缓存
+1.写一个测试,连续两次查询数据库,
+2.在第一次查询结束的地方打断点,手动更改数据的值
+3.执行断点后的第二次查询,验证查询命中一级缓存
+代码参考TestSimpleQuery.testQueryCache方法
+```
+
+##### 10.验证N+1问题
+
+[代码链接](https://github.com/zhuyizhuo/simple-mybatis/blob/master/src/main/java/com.zhuyizhuo.java.mybatis/test/TestComplexQuery.java)
+
+```
+mybatis官网对N+1问题描述如下:
+While this approach is simple, it will not perform well for large data sets or lists. This problem is known as the "N+1 Selects Problem". In a nutshell, the N+1 selects problem is caused like this:
+You execute a single SQL statement to retrieve a list of records (the "+1").
+For each record returned, you execute a select statement to load details for each (the "N").
+
+意思是如果在嵌套查询的情况下,如果查询出单条结果,则不存在问题
+如果查询出多条结果,对查询出的多条结果进行嵌套查询,则会出现N+1次查询的情况
+代码参考TestComplexQuery.selectUserOrderLists方法,数据要求:首次查询出的结果是集合即可
+```
+
+##### 11. org.apache.ibatis.binding.MapperProxy#invoke 这个类的53行什么时候执行？
+
+12. 手写1.0
+13. 2.0版本的基础上，用annotation 
+14. 2.0版本加入plugin功能
