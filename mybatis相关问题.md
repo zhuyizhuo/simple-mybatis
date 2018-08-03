@@ -57,7 +57,7 @@ public class SqlSessionTemplate implements SqlSession, DisposableBean {
 ##### 2.MyBatis在Spring集成下没有mapper的xml文件会不会报错，为什么？
 
 ```
-不会报错. 原因待补充.
+待研究
 ```
 
 ##### 3.[TypeHandler手写](https://github.com/zhuyizhuo/simple-mybatis/blob/master/src/main/java/com.zhuyizhuo.java.mybatis/handler/VarcharTypeHandler.java)
@@ -131,6 +131,19 @@ public abstract class BaseExecutor implements Executor {
   ...
 }  
 ```
+
+```
+查找发现该占位符在BaseExecutor的内部类DeferredLoad.canLoad()方法中有调用,代码摘抄如下:
+private static class DeferredLoad {
+...
+    public boolean canLoad() {
+      return localCache.getObject(key) != null && localCache.getObject(key) != EXECUTION_PLACEHOLDER;
+    }
+...
+}
+```
+
+
 
 ##### 7.MyBatis的plugin实现机制
 
