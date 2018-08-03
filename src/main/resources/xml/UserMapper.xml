@@ -107,20 +107,6 @@
 
     <!-- int为mybatis内嵌别名 -->
     <select id="selectUserOrderResult" resultMap="userOrderResultMap" parameterType="int">
-      select t.id,t.name,t.age,t.order_No orderNo,
-        simple_mybatis_order.id,
-        simple_mybatis_order.order_no,
-        simple_mybatis_order.user_id,
-        simple_mybatis_order.gmt_create
-       from simple_mybatis_user t, simple_mybatis_order
-      where 1=1
-        <if test="id != null">
-        and t.id = #{id}
-        </if>
-      and t.order_No = simple_mybatis_order.order_no
-    </select>
-
-    <select id="selectUserOrderResult" resultMap="userOrderResultMap" parameterType="int">
         select t.id,t.name,t.age,t.order_No orderNo,
         simple_mybatis_order.id,
         simple_mybatis_order.order_no,

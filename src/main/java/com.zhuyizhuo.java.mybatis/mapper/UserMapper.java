@@ -104,14 +104,6 @@ public interface UserMapper {
     UserResultMap selectUserOrderResult(@Param("id") Integer userId);
 
     /**
-     * 测试方法重载
-     * @param userId
-     * @param id1
-     * @return
-     */
-    UserResultMap selectUserOrderResult(@Param("id") Integer userId,@Param("id1")Integer id1);
-
-    /**
      * 关联的嵌套结果1:N
      * @param userId
      * @return

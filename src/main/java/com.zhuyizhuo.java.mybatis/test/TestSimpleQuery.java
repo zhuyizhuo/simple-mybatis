@@ -34,13 +34,13 @@ public class TestSimpleQuery {
         try {
 //            testSimpleQuery();
 
-            simpleQueryUseConstance();
+//            simpleQueryUseConstance();
 
 //            simpleQueryUseEnums();
 
 //            simpleQueryUseEnums2();
 
-//            testQueryCache();
+            testQueryCache();
 
 //            queryResultUseTypeHandler();
         } catch (Exception e){
