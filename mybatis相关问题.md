@@ -6,7 +6,9 @@
 
 mybatis-spring.jar中
 
-SqlSessionTemplate类对sqlSession做了一层代理:
+Mapper的主要作用是找到xml中对应的sql，单例与否都没有影响.
+
+而sqlSession则建议是方法层面,查看源码可知SqlSessionTemplate类对sqlSession做了一层代理,其实sqlSession还是方法层面:
 
 ```java
 public class SqlSessionTemplate implements SqlSession, DisposableBean {
@@ -54,15 +56,13 @@ public class SqlSessionTemplate implements SqlSession, DisposableBean {
   }
 ```
 
-##### 2.MyBatis在Spring集成下没有mapper的xml文件会不会报错，为什么？
+### 2.MyBatis在Spring集成下没有mapper的xml文件会不会报错，为什么？
 
 ```
 待研究
 ```
 
 ##### 3.[TypeHandler手写](https://github.com/zhuyizhuo/simple-mybatis/blob/master/src/main/java/com.zhuyizhuo.java.mybatis/handler/VarcharTypeHandler.java)
-
-
 
 ##### 4.手写Plugin,多个interceptor到底谁先执行？顺序由谁决定的？
 
@@ -102,13 +102,13 @@ public class Plugin implements InvocationHandler {
 }
 ```
 
-##### 5.Mapper 作者为什么要这样设计？为什么不是一个class而是一个interface?
+### 5.Mapper 作者为什么要这样设计？为什么不是一个class而是一个interface?
 
 ```
 
 ```
 
-##### 6.org.apache.ibatis.executor.BaseExecutor#queryFromDatabase 322行这行代码的意义,代码摘抄如下
+### 6.org.apache.ibatis.executor.BaseExecutor#queryFromDatabase 322行这行代码的意义,代码摘抄如下
 
 ```java
 public abstract class BaseExecutor implements Executor {
@@ -128,11 +128,9 @@ public abstract class BaseExecutor implements Executor {
         }
         return list;
       }
-  ...
+	...
 }  
-```
 
-```
 查找发现该占位符在BaseExecutor的内部类DeferredLoad.canLoad()方法中有调用,代码摘抄如下:
 private static class DeferredLoad {
 ...
@@ -141,21 +139,33 @@ private static class DeferredLoad {
     }
 ...
 }
+待详细分析
 ```
-
-
 
 ##### 7.MyBatis的plugin实现机制
 
 ```
 对插件支持的几个接口进行了动态代理,返回的代理对象,执行对应方法之前首先执行了插件的方法
-
 ```
 
 ##### 8.lazy loading 是怎么做到的？
 
-```
-
+```java
+分析源码,可知在映射结果时,对嵌套结果做了代理,关键代码摘抄如下:
+public class DefaultResultSetHandler implements ResultSetHandler {
+	private Object createResultObject(ResultSetWrapper rsw, ResultMap resultMap, ResultLoaderMap lazyLoader, String columnPrefix) throws SQLException {
+    ...
+       //此处判断是否有嵌套 并且 是否设置lazy loading,如果有嵌套并且lazy loading=true则对返回结果字生成代理类,这样当获取嵌套内容时将触发代理 查询数据库 即实现懒加载
+       if (propertyMapping.getNestedQueryId() != null && propertyMapping.isLazy()) {
+          resultObject = configuration.getProxyFactory().createProxy(resultObject, lazyLoader, configuration, objectFactory, constructorArgTypes, constructorArgs);
+          break;
+        }
+      }
+    }
+   ...
+    return resultObject;
+  }
+}
 ```
 ##### 9.怎么验证一级缓存的存在?
 
@@ -186,6 +196,38 @@ For each record returned, you execute a select statement to load details for eac
 
 ##### 11. org.apache.ibatis.binding.MapperProxy#invoke 这个类的53行什么时候执行？
 
-12. 手写1.0
-13. 2.0版本的基础上，用annotation 
-14. 2.0版本加入plugin功能
+```java
+代码摘抄如下:
+@Override
+  public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+    try {
+      if (Object.class.equals(method.getDeclaringClass())) {
+        return method.invoke(this, args);
+      } else if (isDefaultMethod(method)) {
+         //这行代码何时执行?
+        return invokeDefaultMethod(proxy, method, args);
+      }
+    } catch (Throwable t) {
+      throw ExceptionUtil.unwrapThrowable(t);
+    }
+    final MapperMethod mapperMethod = cachedMapperMethod(method);
+    return mapperMethod.execute(sqlSession, args);
+  }
+
+查看isDefaultMethod方法如下：
+  private boolean isDefaultMethod(Method method) {
+    return ((method.getModifiers()
+        & (Modifier.ABSTRACT | Modifier.PUBLIC | Modifier.STATIC)) == Modifier.PUBLIC)
+        && method.getDeclaringClass().isInterface();
+  }
+分析可知,该方法判断方法定义在接口中,并且方法修饰符仅为public时,该方法执行,
+而接口中方法的修饰符 在jdk1.8之前 默认是 public abstract修饰的
+在jdk1.8之后新增了默认方法 即接口中可定义public default修饰符的方法,
+由此可知,第53行代码当且仅当方法为接口中的default方法时才执行.
+```
+
+##### 12. [手写mybatis1.0](https://github.com/zhuyizhuo/simple-mybatis/tree/master/src/main/java/com.zhuyizhuo.java.mybatis/v1)
+
+### 13. 2.0版本的基础上，用annotation
+
+### 14. 2.0版本加入plugin功能
