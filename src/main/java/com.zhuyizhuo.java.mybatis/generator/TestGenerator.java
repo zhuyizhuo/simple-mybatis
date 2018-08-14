@@ -1,4 +1,4 @@
-package com.zhuyizhuo.java.mybatis.test.generator;
+package com.zhuyizhuo.java.mybatis.generator;
 
 import org.mybatis.generator.api.MyBatisGenerator;
 import org.mybatis.generator.config.Configuration;

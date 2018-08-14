@@ -7,7 +7,7 @@
     <context id="context1" targetRuntime="MyBatis3">
 
         <!-- 这里的type里写的是你的实现类的类全路径 -->
-       <!-- <commentGenerator type="com.zhuyizhuo.java.mybatis.test.generator.MyCommentGenerator" />-->
+       <!-- <commentGenerator type="com.zhuyizhuo.java.mybatis.generator.MyCommentGenerator" />-->
 
         <!-- mysql数据库配置 -->
         <jdbcConnection driverClass="com.mysql.cj.jdbc.Driver"

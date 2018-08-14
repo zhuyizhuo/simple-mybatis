@@ -1,4 +1,4 @@
-package com.zhuyizhuo.java.mybatis.test.generator;
+package com.zhuyizhuo.java.mybatis.generator;
 
 import org.mybatis.generator.api.CommentGenerator;
 import org.mybatis.generator.api.IntrospectedColumn;
