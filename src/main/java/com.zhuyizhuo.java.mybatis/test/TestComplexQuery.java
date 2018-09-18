@@ -51,9 +51,9 @@ public class TestComplexQuery {
 
             UserMapper testMapper = sqlSession.getMapper(UserMapper.class);
 
-//            queryPageing(sqlSession);
+            queryPageing(sqlSession);
 
-            testUnionQuery(sqlSession,testMapper);
+//            testUnionQuery(sqlSession,testMapper);
 
 //            testUnionQueryResult(sqlSession,testMapper);
 

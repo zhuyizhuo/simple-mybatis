@@ -34,7 +34,7 @@ public class MyStatementHandler {
         resultSetHandler = new MyResultSetHandler();
     }
 
-    private TokenHandler getHandler(Object parameter) {
+    private TokenHandler getHandler(final Object parameter) {
         return new TokenHandler() {
             @Override
             public String handleToken(String content) {
