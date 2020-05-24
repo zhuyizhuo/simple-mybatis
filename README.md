@@ -62,5 +62,4 @@
 
 ##### 微信:
 
-![二维码](https://github.com/zhuyizhuo/notes/blob/master/wechat.png?raw=true)
-
+![二维码](assets/1559619424122.jpg)
