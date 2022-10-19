@@ -31,7 +31,7 @@ public class TestOrder {
             SqlSession sqlSession = getSqlSession();
             OrderMapper testMapper = sqlSession.getMapper(OrderMapper.class);
             Order order = testMapper.selectOrder("1");
-
+            System.out.println(order.getId());
         }catch (Exception e){
             e.printStackTrace();
         }

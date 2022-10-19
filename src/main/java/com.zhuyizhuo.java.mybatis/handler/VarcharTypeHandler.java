@@ -8,6 +8,7 @@ import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Random;
 
 /**
  * 自定义TypeHandler 重写了VARCHAR类型的TypeHandler
@@ -18,7 +19,8 @@ public class VarcharTypeHandler extends BaseTypeHandler<String> {
 
     @Override
     public void setNonNullParameter(PreparedStatement ps, int i, String parameter, JdbcType jdbcType) throws SQLException {
-        ps.setString(i, parameter + " insert-with-typeHandler");
+        ps.setString(i, parameter + new Random().nextInt());
+        System.out.println("VarcharTypeHandler is use!");
     }
 
     @Override

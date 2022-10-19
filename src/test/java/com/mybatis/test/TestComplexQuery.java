@@ -1,6 +1,7 @@
 package com.mybatis.test;
 
 import com.zhuyizhuo.java.mybatis.bean.Order;
+import com.zhuyizhuo.java.mybatis.bean.UserBean;
 import com.zhuyizhuo.java.mybatis.mapper.UserMapper;
 import com.zhuyizhuo.java.mybatis.resultmap.One2ManyResultMap;
 import com.zhuyizhuo.java.mybatis.resultmap.UserResultMap;
@@ -19,17 +20,94 @@ import java.util.List;
 public class TestComplexQuery {
 
     private SqlSession sqlSession;
-    private UserMapper testMapper;
+    private UserMapper userMapper;
 
     {
         try {
             sqlSession = getSqlSession();
-            testMapper = sqlSession.getMapper(UserMapper.class);
+            userMapper = sqlSession.getMapper(UserMapper.class);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
+    /**
+     * 新增 获取不到数据库的自增ID
+     * @throws Exception
+     */
+    @Test
+    public void testInsert() throws Exception {
+        SqlSession sqlSession = getSqlSession();
+        UserMapper testMapper = sqlSession.getMapper(UserMapper.class);
+
+        UserBean userBean = new UserBean();
+        userBean.setName(System.currentTimeMillis()+"");
+        int i = testMapper.simpleInsert(userBean);
+        System.out.println("testInsert done.." + i);
+        System.out.println("user id : " + userBean.getId());
+        sqlSession.commit();
+        sqlSession.close();
+    }
+
+    /**
+     * useGeneratedKeys （仅对 insert 和 update 有用） 默认值：false
+     * useGeneratedKeys="true"
+     * 这会令 MyBatis 使用 JDBC 的 getGeneratedKeys 方法来取出由数据库内部生成的主键
+     * （比如：像 MySQL 和 SQL Server 这样的关系数据库管理系统的自动递增字段）
+     * @throws Exception
+     */
+    @Test
+    public void insertUseGeneratedKeys() throws Exception {
+        SqlSession sqlSession = getSqlSession();
+        UserMapper testMapper = sqlSession.getMapper(UserMapper.class);
+
+        UserBean userBean = new UserBean();
+        userBean.setName(System.currentTimeMillis()+"");
+        int i = testMapper.insertUseGeneratedKeys(userBean);
+        System.out.println("insertUseGeneratedKeys done.." + i);
+        System.out.println("id:" + userBean.getId());
+        sqlSession.commit();
+        sqlSession.close();
+    }
+
+    /**
+     *
+     * @throws Exception
+     */
+    @Test
+    public void insertUseTypeHandler() throws Exception {
+        SqlSession sqlSession = getSqlSession();
+        UserMapper testMapper = sqlSession.getMapper(UserMapper.class);
+
+        UserBean userBean = new UserBean();
+        userBean.setName("张三");
+        int i = testMapper.insertUseTypeHandler(userBean);
+        System.out.println("insertUseTypeHandler done.." + i);
+        System.out.println("id:" + userBean.getId());
+        System.out.println("name:" + userBean.getName());
+        sqlSession.commit();
+        sqlSession.close();
+    }
+
+    /**
+     * 简单更新
+     * @throws Exception
+     */
+    @Test
+    public void testUpdate() throws Exception {
+        SqlSession sqlSession = getSqlSession();
+        UserMapper testMapper = sqlSession.getMapper(UserMapper.class);
+        UserBean test = new UserBean();
+        test.setId(1);
+        test.setName("cccc");
+        test.setAge("456");
+        test.setOrderNo("testUpdate");
+        int update = testMapper.simpleUpdate(test);
+        System.out.println("update count:" + update);
+        sqlSession.commit();
+        sqlSession.close();
+    }
+    
     /**
      * 分页查询
      * 物理分页
@@ -46,7 +124,7 @@ public class TestComplexQuery {
      */
     @Test
     public void testUnionQuery() {
-        UserResultMap userResultMap = testMapper.selectUserOrders(2);
+        UserResultMap userResultMap = userMapper.selectUserOrders(2);
         System.out.println("testUnionQuery userResultMap : " + userResultMap);
         if (userResultMap != null) {
             System.out.println("testUnionQuery userName : " + userResultMap.getName());
@@ -64,7 +142,7 @@ public class TestComplexQuery {
      */
     @Test
     public void selectUserOrderLists() {
-        List<UserResultMap> userList = testMapper.selectUserOrderLists();
+        List<UserResultMap> userList = userMapper.selectUserOrderLists();
         System.out.println("testUnionQuery userResultMap : " + userList);
         if (userList != null) {
             System.out.println("testUnionQuery userName : " + userList.size());
@@ -76,7 +154,7 @@ public class TestComplexQuery {
      */
     @Test
     public void selectOne2Many() {
-        One2ManyResultMap userResultMap = testMapper.selectOne2Many(1);
+        One2ManyResultMap userResultMap = userMapper.selectOne2Many(1);
         System.out.println("selectOne2Many userResultMap: " + userResultMap);
         if (userResultMap != null) {
             System.out.println("selectOne2Many userName : " + userResultMap.getName());
@@ -91,7 +169,7 @@ public class TestComplexQuery {
      */
     @Test
     public void testUnionQueryResult() {
-        UserResultMap userResultMap = testMapper.selectUserOrderResult(1);
+        UserResultMap userResultMap = userMapper.selectUserOrderResult(1);
         System.out.println("testUnionQueryResult userResultMap : " + userResultMap);
         if (userResultMap != null) {
             System.out.println("testUnionQueryResult name : " + userResultMap.getName());
@@ -106,7 +184,7 @@ public class TestComplexQuery {
      */
     @Test
     public void selectUser2OrderListResult() {
-        One2ManyResultMap userResultMap = testMapper.selectUser2OrderListResult(1);
+        One2ManyResultMap userResultMap = userMapper.selectUser2OrderListResult(1);
         System.out.println("selectUser2OrderListResult userResultMap : " + userResultMap);
         if (userResultMap != null) {
             System.out.println("selectUser2OrderListResult name : " + userResultMap.getName());
