@@ -25,7 +25,7 @@
 
 ###### mybatis 官方代码生成器
 - 修改 generatorConfig.xml 中的数据库配置和生成代码的路径配置
-- 执行 TestGenerator 的 main 方法
+- 执行 com.zhuyizhuo.java.mybatis.generator.TestGenerator 的 main 方法
 
 ###### 扩展部分
 
