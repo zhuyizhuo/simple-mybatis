@@ -51,14 +51,23 @@
 * mysql 5.x +
 * maven
 
+##### 下载项目
+- git clone https://github.com/zhuyizhuo/simple-mybatis.git
+
+##### 运行 mybatis 单测
+- 创建数据库，并执行 src/main/resources/sql 下的 sql 文件
+- 修改 mybatis-config.xml 中的数据库配置
+- 依次执行单元测试中的方法
+
+##### 运行手写 mybatis
+- TODO
+
 ```
 本项目为本人整理mybatis相关知识点所创建.
 欢迎各位补充或issue留言交流.
 ```
 
 ##### 个人联系方式,添加请注明:来自gitHub
-
-##### QQ: 2361883887
 
 ##### 微信:
 

@@ -117,9 +117,6 @@
         <if test="id != null">
             and t.id = #{id}
         </if>
-        <if test="id1 != null">
-            and t.id = #{id1}
-        </if>
         and t.order_No = simple_mybatis_order.order_no
     </select>
     <!-- 关联的嵌套结果end -->
