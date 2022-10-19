@@ -146,6 +146,8 @@ public class TestSimpleQuery {
          *  一级缓存默认打开
          *  如果是此处程序更新数据库 则缓存也会被更新 可打开以下代码验证
          */
+        System.out.println("1、在此处断点 手动修改数据库的值 验证第二次查询命中一级缓存 一级缓存默认打开");
+        System.out.println("2、如果是此处程序更新数据库 则缓存也会被更新 可打开代码验证");
 //        UserBean test = new UserBean();
 ////        test.setId(1);
 ////        test.setName(new Random().nextInt(20)+"");
@@ -154,7 +156,7 @@ public class TestSimpleQuery {
 ////        sqlSession.commit();
 
         List<UserBean> cacheResult = testMapper.simpleQuery(userBean);
-        System.out.println("testQuery : " + cacheResult.get(0).getName());
+        System.out.println("验证缓存 : " + cacheResult.get(0).getName());
 
         if (sqlSession != null){
             sqlSession.close();
