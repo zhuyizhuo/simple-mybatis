@@ -24,7 +24,8 @@
 * 二级缓存不建议使用,本项目并未做验证
 
 ###### mybatis 官方代码生成器
-- TestGenerator
+- 修改 generatorConfig.xml 中的数据库配置和生成代码的路径配置
+- 执行 TestGenerator 的 main 方法
 
 ###### 扩展部分
 
@@ -63,7 +64,9 @@
 - 依次执行单元测试中的方法
 
 ##### 运行手写 mybatis
-- TODO
+- 修改 MybatisConstants 中的数据库配置
+- 执行 TestYZMybatis 中的 main 方法
+- 执行 Client 中的 main 方法
 
 ```
 本项目为本人整理mybatis相关知识点所创建.

@@ -1,5 +1,6 @@
 package com.zhuyizhuo.java.mybatis.v1;
 
+import com.zhuyizhuo.java.mybatis.constant.MybatisConstants;
 import com.zhuyizhuo.java.mybatis.v1.pojo.TestResult;
 
 import java.sql.Connection;
@@ -34,10 +35,10 @@ public class SimpleExecutor implements Executor{
     }
 
     private Connection getConnection() {
-        String driver = "com.mysql.cj.jdbc.Driver";
-        String url = "jdbc:mysql://localhost:3306/yizhuo?useUnicode=true&characterEncoding=utf-8&useSSL=false&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai";
-        String username = "root";
-        String password = "123456";
+        String driver = MybatisConstants.JDBC_DRIVER;
+        String url = MybatisConstants.URL;
+        String username = MybatisConstants.USERNAME;
+        String password = MybatisConstants.PASSWORD;
         Connection conn = null;
         try {
             //classLoader,加载对应驱动

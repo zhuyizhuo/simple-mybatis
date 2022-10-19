@@ -1,4 +1,4 @@
-package com.zhuyizhuo.java.mybatis.test;
+package com.mybatis.test;
 
 import com.zhuyizhuo.java.mybatis.bean.UserBean;
 import com.zhuyizhuo.java.mybatis.mapper.UserMapper;

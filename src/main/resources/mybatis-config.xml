@@ -42,11 +42,11 @@
             <transactionManager type="JDBC"/>
             <dataSource type="POOLED">
                 <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
-                <property name="url" value="jdbc:mysql://localhost:3306/yizhuo?useUnicode=true&amp;
+                <property name="url" value="jdbc:mysql://localhost:3306/simple-mybatis?useUnicode=true&amp;
                 characterEncoding=utf-8&amp;useSSL=false&amp;useJDBCCompliantTimezoneShift=true&amp;
                 useLegacyDatetimeCode=false&amp;serverTimezone=Asia/Shanghai"/>
                 <property name="username" value="root"/>
-                <property name="password" value="123456"/>
+                <property name="password" value="Zhuo3.2"/>
             </dataSource>
         </environment>
     </environments>

@@ -20,5 +20,6 @@ public class Client {
 
         UserBean ub = new UserBean();
         UserBean userBean = mapper.selectUser(ub);
+        System.out.println(userBean);
     }
 }

@@ -7,34 +7,34 @@
     <context id="context1" targetRuntime="MyBatis3">
 
         <!-- 这里的type里写的是你的实现类的类全路径 -->
-       <!-- <commentGenerator type="com.zhuyizhuo.java.mybatis.generator.MyCommentGenerator" />-->
+        <commentGenerator type="com.zhuyizhuo.java.mybatis.generator.MyCommentGenerator" />
 
         <!-- mysql数据库配置 -->
         <jdbcConnection driverClass="com.mysql.cj.jdbc.Driver"
-                        connectionURL="jdbc:mysql://localhost:3306/yizhuo?useUnicode=true&amp;
+                        connectionURL="jdbc:mysql://localhost:3306/simple-mybatis?useUnicode=true&amp;
                 characterEncoding=utf-8&amp;useSSL=false&amp;useJDBCCompliantTimezoneShift=true&amp;
                 useLegacyDatetimeCode=false&amp;serverTimezone=Asia/Shanghai"
                         userId="root"
-                        password="123456">
+                        password="Zhuo3.2">
             <property name="useInformationSchema" value="true"></property>
         </jdbcConnection>
 
         <!-- dto class -->
         <javaModelGenerator targetPackage="model"
-                            targetProject="C:\Users\yizhuo\Desktop\generator">
+                            targetProject="C:\Users\admin\Desktop\generator">
             <property name="enableSubPackages" value="false" />
             <property name="trimStrings" value="true" />
         </javaModelGenerator>
 
         <!-- mybatis xml file -->
         <sqlMapGenerator targetPackage="xml"
-                         targetProject="C:\Users\yizhuo\Desktop\generator">
+                         targetProject="C:\Users\admin\Desktop\generator">
             <property name="enableSubPackages" value="false" />
         </sqlMapGenerator>
 
         <!-- dao Mapper 配置 -->
         <javaClientGenerator type="XMLMAPPER"
-                             targetPackage="dao" targetProject="C:\Users\yizhuo\Desktop\generator">
+                             targetPackage="dao" targetProject="C:\Users\admin\Desktop\generator">
             <property name="enableSubPackages" value="false" />
         </javaClientGenerator>
 
