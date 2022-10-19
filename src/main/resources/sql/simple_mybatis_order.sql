@@ -26,3 +26,5 @@ CREATE TABLE `simple_mybatis_order` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='订单表';
 
+INSERT INTO simple_mybatis_order (id, order_no, user_id, gmt_create) VALUES (1, '1', '2', '2020-10-19 16:01:56');
+INSERT INTO simple_mybatis_order (id, order_no, user_id, gmt_create) VALUES (2, '2', '22', '2020-10-19 16:02:25');
