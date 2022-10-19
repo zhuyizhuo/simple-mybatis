@@ -1,17 +1,9 @@
 package com.zhuyizhuo.java.mybatis.v2.executor;
 
 import com.zhuyizhuo.java.mybatis.v2.executor.statement.MyStatementHandler;
-import org.apache.ibatis.parsing.GenericTokenParser;
-import org.apache.ibatis.parsing.TokenHandler;
 
-import java.lang.reflect.Method;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.List;
 
 /**

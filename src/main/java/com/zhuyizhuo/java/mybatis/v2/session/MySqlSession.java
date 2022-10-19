@@ -1,12 +1,9 @@
 package com.zhuyizhuo.java.mybatis.v2.session;
 
-import com.zhuyizhuo.java.mybatis.v2.binding.MyMapperProxy;
 import com.zhuyizhuo.java.mybatis.v2.executor.MyExecutor;
 import com.zhuyizhuo.java.mybatis.v2.executor.MySimpleExecutor;
-import com.zhuyizhuo.java.mybatis.v2.mapper.TestMapper;
 import org.apache.ibatis.exceptions.TooManyResultsException;
 
-import java.lang.reflect.Proxy;
 import java.util.List;
 
 /**

@@ -4,7 +4,6 @@ import com.zhuyizhuo.java.mybatis.bean.UserBean;
 import com.zhuyizhuo.java.mybatis.resultmap.One2ManyResultMap;
 import com.zhuyizhuo.java.mybatis.resultmap.UserResultMap;
 import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.type.Alias;
 
 import java.util.List;
 
